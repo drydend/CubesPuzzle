@@ -1,0 +1,54 @@
+{
+    "name": "PlayerSwipeAction",
+    "maps": [
+        {
+            "name": "Swipe Map",
+            "id": "3fb3e00f-7680-4a99-9f42-b364a0aaf1bb",
+            "actions": [
+                {
+                    "name": "Player Contact",
+                    "type": "PassThrough",
+                    "id": "dac642f4-ed8a-4e0b-b1c0-2babbe710a6f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Contact Position",
+                    "type": "PassThrough",
+                    "id": "6e27fad6-d7b6-49e5-8ed5-0fc514b83a66",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b9ab1af5-0eba-471f-b7f7-c4aee65d8976",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Player Contact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f08acb5-398d-4480-a812-76b1a8395c4c",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Contact Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
