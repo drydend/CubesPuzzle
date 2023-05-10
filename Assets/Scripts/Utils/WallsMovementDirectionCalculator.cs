@@ -4,30 +4,44 @@ namespace Utils
 {
     public static class WallsMovementDirectionCalculator
     {
+        private static readonly Vector2 UpDirection = new Vector2(-0.707f, 0.707f);
+        private static readonly Vector2 DownDirection = new Vector2(0.707f, -0.707f);
+        private static readonly Vector2 RightDirection = new Vector2(0.707f, 0.707f);
+        private static readonly Vector2 LeftDirection = new Vector2(-0.707f, -0.707f);
+
         private const float Threshold = 0.8f;
 
-        public static MoveDirection CalculateMoveDirectionAndWallType(Vector2 direction, out WallType wallType)
+        public static bool CalculateMoveDirectionAndWallType(Vector2 direction, out WallType wallType, out MoveDirection moveDirection)
         {
-            if (Vector2.Dot(Vector2.up, direction) < Threshold)
+            if (Vector2.Dot(UpDirection, direction) > Threshold)
             {
                 wallType = WallType.Vertical;
-                return MoveDirection.Forward;
+                moveDirection = MoveDirection.Forward;
+                return true;
             }
-            else if (Vector2.Dot(Vector2.down, direction) < Threshold)
+            else if (Vector2.Dot(DownDirection, direction) > Threshold)
             {
                 wallType = WallType.Vertical;
-                return MoveDirection.Backward;
+                moveDirection = MoveDirection.Backward;
+                return true;
             }
-            else if (Vector2.Dot(Vector2.right, direction) < Threshold)
+            else if (Vector2.Dot(RightDirection, direction) > Threshold)
             {
                 wallType = WallType.Horizontal;
-                return MoveDirection.Forward;
+                moveDirection = MoveDirection.Forward;
+                return true;
             }
-            else
+            else if(Vector2.Dot(LeftDirection, direction) > Threshold)
             {
                 wallType = WallType.Horizontal;
-                return MoveDirection.Backward;
+                moveDirection = MoveDirection.Backward;
+                return true;
             }
+
+            wallType = default(WallType);
+            moveDirection = default(MoveDirection);
+
+            return false;
         }
     }
 }

@@ -18,15 +18,17 @@ namespace Input
 
         public event Action<Vector2> Swiped;
 
-        public PlayerInput(PlayerSwipeAction swipeAction, Camera camera, PlayerSwipeConfig config)
+        public PlayerInput(Camera camera, PlayerSwipeConfig config)
         {
-            _playerSwipeActions = swipeAction;
+            _playerSwipeActions = new PlayerSwipeAction();
             _camera = camera;
             _playerSwipeConfig = config;
         }
 
         public void Initialize()
-        {
+        {   
+            _playerSwipeActions.Enable();
+
             _playerSwipeActions.SwipeMap.PlayerContact.started += ctx => OnStarterPressing(ctx);
             _playerSwipeActions.SwipeMap.PlayerContact.canceled += ctx => OnEndedPressing(ctx);
         }
@@ -52,13 +54,7 @@ namespace Input
 
         private Vector2 CalculateSwipeDirection()
         {
-            var startSwipeWorldPos = _camera.ScreenToWorldPoint(_touchStartPosition);
-            startSwipeWorldPos.z = _camera.nearClipPlane;
-            
-            var endSwipeWorldPos = _camera.ScreenToWorldPoint(_touchEndPosition);
-            endSwipeWorldPos.z = _camera.nearClipPlane;
-
-            return (endSwipeWorldPos - startSwipeWorldPos).normalized;
+            return (_touchEndPosition - _touchStartPosition).normalized;
         }
 
         private void OnStarterPressing(InputAction.CallbackContext ctx)

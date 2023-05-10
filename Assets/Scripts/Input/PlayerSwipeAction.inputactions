@@ -28,8 +28,8 @@
                 {
                     "name": "",
                     "id": "b9ab1af5-0eba-471f-b7f7-c4aee65d8976",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Player Contact",
@@ -39,7 +39,7 @@
                 {
                     "name": "",
                     "id": "5f08acb5-398d-4480-a812-76b1a8395c4c",
-                    "path": "<Touchscreen>/primaryTouch/position",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

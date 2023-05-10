@@ -41,5 +41,10 @@ namespace StateMachines
             newState.SetArgs(args);
             newState.Enter();
         }
+
+        public void ExitAllStates()
+        {
+            _currentState?.Exit();
+        }
     }
 }

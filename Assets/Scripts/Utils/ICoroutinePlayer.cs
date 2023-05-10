@@ -6,7 +6,7 @@ namespace Utils
 {
     public interface ICoroutinePlayer
     {
-        void StartRoutine(IEnumerator enumerator);
+        Coroutine StartRoutine(IEnumerator enumerator);
         void StopRoutine(Coroutine coroutine);
     }
 }

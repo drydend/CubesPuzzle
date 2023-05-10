@@ -4,7 +4,7 @@ namespace CommandsSystem
 {
     public abstract class Command
     {
-        public bool IsDone { get; protected set; }
+        public bool IsReady { get; protected set; }
 
         protected Command() { }
 

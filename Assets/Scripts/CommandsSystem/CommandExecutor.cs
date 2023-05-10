@@ -29,7 +29,7 @@ namespace Assets.Scripts.Walls
             }
             
             _commands.Push(command);
-            _coroutinePlayer.StartRoutine(ExecuteCommandRoutine(command));
+            _coroutinePlayer.StartRoutine(ExecuteCommandRoutine(command, callback));
 
             return true;
         }
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Walls
         {
             _isInProgress = true;
             command.Undo();
-            yield return new WaitUntil(() => command.IsDone);
+            yield return new WaitUntil(() => command.IsReady);
             callback?.Invoke();
             OnCommandUndo();
         }
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Walls
         {
             _isInProgress = true;
             command.Execute();
-            yield return new WaitUntil(() => command.IsDone);
+            yield return new WaitUntil(() => command.IsReady);
             callback?.Invoke();
             OnCommandExecuted();
         }

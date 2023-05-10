@@ -23,35 +23,44 @@ namespace CommandsSystem
             _walls = walls;
             _movementDirection = moveDirection;
             _startPositions = walls.Select(wall => wall.transform.position).ToList();
+            IsReady = true;
         }
 
         public override void Execute()
-        {   
-            if(!IsDone) 
+        {
+            if (!IsReady)
             {
                 return;
             }
 
-            IsDone = false;
+            IsReady = false;
 
             foreach (var wall in _walls)
             {
-                wall.Move(_movementDirection);
-                wall.StopedMoving += OnWallStoper;
-                _movingWalls.Add(wall);
+                if (wall.CanMoveInDirection(_movementDirection))
+                {
+                    wall.Move(_movementDirection);
+                    wall.StopedMoving += OnWallStoper;
+                    _movingWalls.Add(wall);
+                }
             }
 
             _hasExecuted = true;
+
+            if(_movingWalls.Count == 0)
+            {
+                IsReady = true;
+            }
         }
 
         public override void Undo()
         {
-            if (!IsDone)
+            if (!IsReady)
             {
                 return;
             }
 
-            IsDone = false;
+            IsReady = false;
 
             for (int i = 0; i < _walls.Count; i++)
             {
@@ -85,10 +94,10 @@ namespace CommandsSystem
         private void OnWallReachedDesiredPosition(MoveableWall wall)
         {
             _movingWalls.Remove(wall);
-            
+
             if (_movingWalls.Count == 0)
             {
-                IsDone = true;
+                IsReady = true;
                 Dispose();
             }
         }
@@ -97,9 +106,9 @@ namespace CommandsSystem
         {
             _movingWalls.Remove(wall);
 
-            if(_movingWalls.Count == 0)
+            if (_movingWalls.Count == 0)
             {
-                IsDone = true;
+                IsReady = true;
                 Dispose();
             }
         }

@@ -28,7 +28,6 @@ namespace LevelSystem
         public override void Enter()
         {
             MoveWalls();
-
         }
 
         public override void Exit()
@@ -61,8 +60,13 @@ namespace LevelSystem
             MoveWallsCommand movementCommand;
 
             WallType wallType;
-            MoveDirection moveDirection = WallsMovementDirectionCalculator.
-                CalculateMoveDirectionAndWallType(_args._inputDirection, out wallType);
+            MoveDirection moveDirection;
+            
+            if(!WallsMovementDirectionCalculator
+                .CalculateMoveDirectionAndWallType(_args._inputDirection, out wallType, out moveDirection))
+            {
+                _stateMachine.SwitchState<LevelIdleState>();
+            }
 
             if (wallType == WallType.Vertical)
             {
