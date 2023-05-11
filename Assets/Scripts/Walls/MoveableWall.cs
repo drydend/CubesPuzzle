@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Wall
+namespace WallsSystem
 {
     public class MoveableWall : Wall
     {

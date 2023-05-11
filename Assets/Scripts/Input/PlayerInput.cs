@@ -1,10 +1,11 @@
 ﻿using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
+using LevelSystem;
 
 namespace Input
 {
-    public class PlayerInput
+    public class PlayerInput : ILevelStartTrigger
     {
         private PlayerSwipeAction _playerSwipeActions;
         private Camera _camera;
@@ -17,6 +18,7 @@ namespace Input
         private Vector2 _touchEndPosition;
 
         public event Action<Vector2> Swiped;
+        public event Action<Vector2> LevelStarted;
 
         public PlayerInput(Camera camera, PlayerSwipeConfig config)
         {
@@ -50,6 +52,7 @@ namespace Input
 
             var swipeDirection = CalculateSwipeDirection();
             Swiped?.Invoke(swipeDirection);
+            LevelStarted?.Invoke(swipeDirection);
         }
 
         private Vector2 CalculateSwipeDirection()

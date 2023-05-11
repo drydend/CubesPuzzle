@@ -6,7 +6,9 @@ namespace StateMachines
     public class StateMachine
     {
         private Dictionary<Type, BaseState> _states;
-        
+
+        private BaseState _previousState;
+
         private BaseState _currentState;
 
         public StateMachine(Dictionary<Type, BaseState> states)
@@ -22,6 +24,8 @@ namespace StateMachines
             }
 
             _currentState?.Exit();
+            _previousState = _currentState;
+
             _currentState = _states[typeof(StateType)];
             _currentState.Enter();
         }
@@ -36,6 +40,7 @@ namespace StateMachines
             var newState = (ParamBaseState<ArgsType>) _states[typeof(StateType)];
 
             _currentState?.Exit();
+            _previousState = _currentState;
 
             _currentState = newState;
             newState.SetArgs(args);
@@ -45,6 +50,22 @@ namespace StateMachines
         public void ExitAllStates()
         {
             _currentState?.Exit();
+        }
+
+        public void SwitchToPreviousState()
+        {   
+            if(_previousState == null ) 
+            {
+                throw new NullReferenceException("The previous state of state machine has not been assigned");
+            }
+
+            _currentState?.Exit();
+
+            var temp = _previousState;
+            _previousState = _currentState;
+            
+            _currentState = temp;
+            _currentState.Enter();
         }
     }
 }

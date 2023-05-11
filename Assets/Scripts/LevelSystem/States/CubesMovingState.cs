@@ -3,7 +3,7 @@ using LevelSystem.States;
 using StateMachines;
 using System.Collections.Generic;
 using Utils;
-using Wall;
+using WallsSystem;
 
 namespace LevelSystem
 {

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace Wall
+namespace WallsSystem
 {
     public class Wall : MonoBehaviour
     {

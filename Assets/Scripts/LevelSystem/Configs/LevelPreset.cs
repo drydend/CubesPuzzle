@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Wall;
+using WallsSystem;
 
 namespace LevelSystem
 {
