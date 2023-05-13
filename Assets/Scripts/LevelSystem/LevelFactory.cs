@@ -27,7 +27,8 @@ namespace LevelSystem
         {
             var levelPreset = Object.Instantiate(levelConfig.Preset);
             ICommandExecutor commandExecutor = new CommandExecutor(_coroutinePlayer);
-            ILevelWinChecker levelWinChecker = new LevelWinChecker(levelPreset);
+            ILevelCompleteChecker levelWinChecker = new LevelCompleteChecker();
+            levelWinChecker.SetLevel(levelPreset);
 
             var level = new Level(_playerInput, levelPreset, commandExecutor, levelWinChecker, _UIMenusHolder, _levelUI);
             level.InitializeStateMachine();

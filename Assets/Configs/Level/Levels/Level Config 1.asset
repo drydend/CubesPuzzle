@@ -16,3 +16,4 @@ MonoBehaviour:
   _levelNumber: 1
   _cameraPosition: {x: -12, y: 30, z: -12}
   _cameraRotation: {x: 60.000004, y: 45, z: 0}
+  _initialCameraPosition: {x: -14, y: 36, z: -14}

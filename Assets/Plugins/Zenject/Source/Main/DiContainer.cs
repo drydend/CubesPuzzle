@@ -1048,6 +1048,7 @@ namespace Zenject
 
                 var instances = ZenPools.SpawnList<object>();
 
+    
                 try
                 {
                     SafeGetInstances(providerInfo, context, instances);

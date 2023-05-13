@@ -9,9 +9,9 @@ namespace LevelSystem.States
     {
         private readonly StateMachine _stateMachine;
         private readonly PlayerInput _playerInput;
-        private ILevelWinChecker _winChecker;
+        private ILevelCompleteChecker _winChecker;
 
-        public LevelIdleState(StateMachine stateMachine, PlayerInput input, ILevelWinChecker levelWinChecher) 
+        public LevelIdleState(StateMachine stateMachine, PlayerInput input, ILevelCompleteChecker levelWinChecher) 
         {
             _stateMachine = stateMachine;
             _playerInput = input;

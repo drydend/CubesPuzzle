@@ -1,10 +1,13 @@
 ﻿using GameUI;
 using LevelSystem;
+using PauseSystem;
 using StateMachines;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Utils;
+using WallsSystem;
 
 public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 {
@@ -12,9 +15,11 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 
     private UIMenusHolder _menusHolder;
     private LevelUI _levelUI;
+    private readonly LevelPauser _levelPauser;
     private LevelFactory _levelFactory;
     private ICoroutinePlayer _coroutinePlayer;
     private ScreenFade _screenFade;
+    private CameraMover _cameraMover;
 
     private Level _loadedLevel;
 
@@ -22,28 +27,34 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 
     private Coroutine _levelCreationCoroutine;
 
-    public GameLoadingLevelState(StateMachine stateMachine, UIMenusHolder menusHolder,LevelUI levelUI,  
-        LevelFactory levelFactory, ICoroutinePlayer coroutinePlayer, ScreenFade screenFade)
+    public GameLoadingLevelState(StateMachine stateMachine, UIMenusHolder menusHolder, LevelUI levelUI, LevelPauser levelPauser,
+        LevelFactory levelFactory, ICoroutinePlayer coroutinePlayer, CameraMover cameraMover)
     {
         _stateMachine = stateMachine;
         _menusHolder = menusHolder;
+        _levelUI = levelUI;
+        _levelPauser = levelPauser;
         _levelFactory = levelFactory;
         _coroutinePlayer = coroutinePlayer;
-        _screenFade = screenFade;
+        _screenFade = levelUI.ScreenFade;
+        _cameraMover = cameraMover;
     }
 
     public override void Enter()
     {
+        if (_levelCreationCoroutine != null)
+        {
+            throw new System.Exception("Level is stil created, you must wait until its done");
+        }
+
+        _cameraMover.SetLevelConfig(_loadingLevelArgs.LevelConfig);
         _menusHolder.CloseAllMenus();
         _levelCreationCoroutine = _coroutinePlayer.StartRoutine(LoadNewLevel());
     }
 
     public override void Exit()
     {
-        if(_levelCreationCoroutine != null ) 
-        {
-            throw new Exception("You can not exit from loading level start until current level loading");
-        }
+
     }
 
     public override void SetArgs(LoadingLevelArgs args)
@@ -55,15 +66,40 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
     {
         yield return _screenFade.Fade();
 
-        _loadedLevel?.DestroyLevel();
+        ResetPreviousLevel();
         _loadedLevel = _levelFactory.CreateLevel(_loadingLevelArgs.LevelConfig);
-        
+
+        InitPauseSystem();
+
         _levelUI.UpdateUI(_loadingLevelArgs.LevelConfig);
-        
-        yield return _screenFade.UnFade();
-        
+
         var args = new GameStartStateArgs(_loadedLevel);
         _stateMachine.SwithcStateWithParam<GameStartState, GameStartStateArgs>(args);
+
+        yield return _screenFade.UnFade();
     }
 
+    private void InitPauseSystem()
+    {
+        var pauseableWalls = GetPauseableFromWalls(_loadedLevel.Walls);
+        _levelPauser.AddPauseable(pauseableWalls);
+    }
+
+    private void ResetPreviousLevel()
+    {
+        _levelPauser.ResetPauseables();
+        _loadedLevel?.DestroyLevel();
+    }
+
+    private List<IPauseable> GetPauseableFromWalls(List<MoveableWall> walls)
+    {
+        var result = new List<IPauseable>();
+
+        foreach (var item in walls)
+        {
+            result.Add(item);
+        }
+
+        return result;
+    }
 }

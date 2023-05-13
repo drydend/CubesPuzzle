@@ -9,17 +9,19 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
     private StateMachine _stateMachine;
 
     private UIMenu _levelStateUIMenu;
+    private readonly CameraMover _cameraMover;
     private UIMenusHolder _UIMenusHolder;
     private ILevelStartTrigger _levelStartTrigger;
     private IPauseTrigger _levelPauseTrigger;
 
     private Level _currentLevel;
 
-    public GameStartState(StateMachine stateMachine, UIMenu levelStateUIMenu,
+    public GameStartState(StateMachine stateMachine, UIMenu levelStateUIMenu, CameraMover cameraMover,
         UIMenusHolder uIMenusHolder, ILevelStartTrigger levelStartTrigger, IPauseTrigger levelPauseTrigger)
     {
         _stateMachine = stateMachine;
         _levelStateUIMenu = levelStateUIMenu;
+        _cameraMover = cameraMover;
         _UIMenusHolder = uIMenusHolder;
         _levelStartTrigger = levelStartTrigger;
         _levelPauseTrigger = levelPauseTrigger;
@@ -27,6 +29,7 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
 
     public override void Enter()
     {
+        _cameraMover.SetToLevelStartPosition();
         _UIMenusHolder.OpenMenu(_levelStateUIMenu);
         _levelPauseTrigger.GamePaused += PauseGame;
         _levelStartTrigger.LevelStarted += StartLevel;
@@ -34,6 +37,7 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
 
     public override void Exit()
     {
+        _cameraMover.MoveToLevelRuningPosition();
         _UIMenusHolder.CloseCurrentMenu();
         _levelPauseTrigger.GamePaused -= PauseGame;
         _levelStartTrigger.LevelStarted -= StartLevel;

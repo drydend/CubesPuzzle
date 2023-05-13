@@ -10,6 +10,8 @@ namespace Installers
         [SerializeField]   
         private PlayerSwipeConfig _swipeConfig;
         [SerializeField]
+        private GameInputField _gameInputField;
+        [SerializeField]
         private Camera _camera;
 
         private PlayerInput _input;
@@ -17,21 +19,11 @@ namespace Installers
         public override void InstallBindings()
         {
             InstallPlayerInput();
-            InstallLevelStartTrigger();
-        }
-
-        private void InstallLevelStartTrigger()
-        {
-            Container
-                .Bind<ILevelStartTrigger>()
-                .To<PlayerInput>()
-                .FromInstance(_input)
-                .AsSingle();
         }
 
         private void InstallPlayerInput()
         {
-            _input = new PlayerInput(_camera, _swipeConfig);
+            _input = new PlayerInput(_camera, _swipeConfig, _gameInputField);
             _input.Initialize();
 
             Container

@@ -9,7 +9,9 @@ namespace Input
     {
         private PlayerSwipeAction _playerSwipeActions;
         private Camera _camera;
+        private GameInputField _gameInputField;
         private PlayerSwipeConfig _playerSwipeConfig;
+
 
         private float _touchStartTime;
         private float _touchEndTime;
@@ -20,15 +22,16 @@ namespace Input
         public event Action<Vector2> Swiped;
         public event Action<Vector2> LevelStarted;
 
-        public PlayerInput(Camera camera, PlayerSwipeConfig config)
+        public PlayerInput(Camera camera, PlayerSwipeConfig config, GameInputField gameInputField)
         {
             _playerSwipeActions = new PlayerSwipeAction();
+            _gameInputField = gameInputField;
             _camera = camera;
             _playerSwipeConfig = config;
         }
 
         public void Initialize()
-        {   
+        {
             _playerSwipeActions.Enable();
 
             _playerSwipeActions.SwipeMap.PlayerContact.started += ctx => OnStarterPressing(ctx);
@@ -51,8 +54,12 @@ namespace Input
             }
 
             var swipeDirection = CalculateSwipeDirection();
-            Swiped?.Invoke(swipeDirection);
-            LevelStarted?.Invoke(swipeDirection);
+
+            if (_gameInputField.IsFingerOnField())
+            {
+                Swiped?.Invoke(swipeDirection);
+                LevelStarted?.Invoke(swipeDirection);
+            }
         }
 
         private Vector2 CalculateSwipeDirection()

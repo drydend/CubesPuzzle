@@ -1,10 +1,11 @@
+using PauseSystem;
 using System;
 using System.Collections;
 using UnityEngine;
 
 namespace WallsSystem
 {
-    public class MoveableWall : Wall
+    public class MoveableWall : Wall, IPauseable
     {
         [SerializeField]
         private Transform _initialPosition;
@@ -15,6 +16,8 @@ namespace WallsSystem
 
         private Coroutine _movementCoroutine;
         private Wall _lastTouchedWall;
+
+        private bool _isPaused;
 
         public event Action<MoveableWall> StopedMoving;
         public event Action<MoveableWall> ReachedDesiredPosition;
@@ -57,14 +60,14 @@ namespace WallsSystem
             var ray = new Ray(transform.position, movementDiretion);
             var raycasts = Physics.RaycastAll(ray);
 
-            if(raycasts.Length == 0)
+            if (raycasts.Length == 0)
             {
                 return true;
             }
 
             if (raycasts[0].collider.gameObject.TryGetComponent(out Wall wall) && wall == this)
             {
-                if(raycasts[1].collider.gameObject.TryGetComponent(out Wall secondWall) && secondWall == _lastTouchedWall)
+                if (raycasts[1].collider.gameObject.TryGetComponent(out Wall secondWall) && secondWall == _lastTouchedWall)
                 {
                     return false;
                 }
@@ -73,7 +76,7 @@ namespace WallsSystem
                     return true;
                 }
             }
-            else if(raycasts[0].collider.gameObject.TryGetComponent(out Wall secondWall) && secondWall == _lastTouchedWall)
+            else if (raycasts[0].collider.gameObject.TryGetComponent(out Wall secondWall) && secondWall == _lastTouchedWall)
             {
                 return false;
             }
@@ -81,12 +84,29 @@ namespace WallsSystem
             return true;
         }
 
+        public void Pause()
+        {
+            _isPaused = true;
+        }
+
+        public void Unpause()
+        {
+            _isPaused = false;
+        }
+
+
         private IEnumerator MoveToRoutine(Vector3 position)
         {
             while (transform.position != position)
             {
                 transform.position = Vector3.MoveTowards(transform.position, position,
                     _movementSpeed * Time.deltaTime);
+
+                while (_isPaused)
+                {
+                    yield return null;
+                }
+
                 yield return null;
             }
 
@@ -99,6 +119,12 @@ namespace WallsSystem
             {
                 transform.position = Vector3.MoveTowards(transform.position, transform.position + direction,
                     _movementSpeed * Time.deltaTime);
+
+                while (_isPaused)
+                {
+                    yield return null;
+                }
+
                 yield return null;
             }
         }

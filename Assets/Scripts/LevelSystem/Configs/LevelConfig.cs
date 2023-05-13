@@ -14,9 +14,13 @@ namespace LevelSystem
         [SerializeField]
         private Vector3 _cameraRotation;
 
+        [SerializeField]
+        private Vector3 _initialCameraPosition;
+
         public LevelPreset Preset => _levelPreset;
         public int LevelNumber => _levelNumber;
         public Vector3 CameraPosition => _cameraPosition;
         public Vector3 CameraRotation => _cameraRotation;
+        public Vector3 InitialCameraPosition => _initialCameraPosition;
     }
 }

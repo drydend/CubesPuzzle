@@ -66,6 +66,7 @@ namespace LevelSystem
                 .CalculateMoveDirectionAndWallType(_args._inputDirection, out wallType, out moveDirection))
             {
                 _stateMachine.SwitchState<LevelIdleState>();
+                return;
             }
 
             if (wallType == WallType.Vertical)
@@ -87,6 +88,5 @@ namespace LevelSystem
         {
             _stateMachine.SwitchState<LevelIdleState>();
         }
-
     }
 }

@@ -16,19 +16,20 @@ namespace LevelSystem
 
         private PlayerInput _playerInput;
         private LevelPreset _preset;
-        private List<MoveableWall> _walls;
         private ICommandExecutor _commandExecutor;
-        private ILevelWinChecker _levelWinChecker;
+        private ILevelCompleteChecker _levelWinChecker;
         private UIMenusHolder _UIMenusHolder;
         private LevelUI _levelUI;
 
+        public List<MoveableWall> Walls { get; private set; }
+
         public Level(PlayerInput input, LevelPreset levelPreset, 
-            ICommandExecutor commandExecutor, ILevelWinChecker levelWinChecker, 
+            ICommandExecutor commandExecutor, ILevelCompleteChecker levelWinChecker, 
             UIMenusHolder uIMenusHolder, LevelUI levelUI) 
         {
             _playerInput = input;
             _preset = levelPreset;
-            _walls = _preset.Walls;
+            Walls = _preset.Walls;
             _commandExecutor = commandExecutor;
             _levelWinChecker = levelWinChecker;
             _UIMenusHolder = uIMenusHolder;
@@ -41,7 +42,7 @@ namespace LevelSystem
             _stateMachine = new StateMachine(states);
 
             states.Add(typeof(LevelIdleState), new LevelIdleState(_stateMachine, _playerInput, _levelWinChecker));
-            states.Add(typeof(CubesMovingState), new CubesMovingState(_stateMachine, _walls, _commandExecutor));
+            states.Add(typeof(CubesMovingState), new CubesMovingState(_stateMachine, Walls, _commandExecutor));
             states.Add(typeof(LevelCompleteState), new LevelCompleteState(_levelUI.LevelCompleteUI, _UIMenusHolder));
         }
 
