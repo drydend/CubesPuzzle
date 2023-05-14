@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WallsSystem;
 
@@ -14,5 +15,13 @@ namespace LevelSystem
 
         public List<MoveableWall> Walls => _walls;
         public List<CompleteTrigger> CompleteTriggers => _completeTriggers;
+
+        public void ResetLevel()
+        {
+            foreach (var wall in _walls)
+            {
+                wall.SetPositionTo(wall.InitialPosition.position);
+            }
+        }
     }
 }

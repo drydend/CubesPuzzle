@@ -112,5 +112,16 @@ namespace CommandsSystem
                 Dispose();
             }
         }
+
+        public override void Stop()
+        {
+            foreach (var wall in _movingWalls)
+            {
+                wall.StopMovingImidiatly();
+            }
+
+            IsReady = true;
+            Dispose();
+        }
     }
 }

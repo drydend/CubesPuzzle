@@ -14,6 +14,19 @@ namespace GameUI
             }
         }
 
+        public void CloseMenu(UIMenu menu)
+        {
+            if(_openedMenus.Count > 0 && _openedMenus.Peek() == menu)
+            {
+                _openedMenus.Pop().Close();
+
+                if (_openedMenus.Count != 0)
+                {
+                    _openedMenus.Peek().Open();
+                }
+            }
+        }
+
         public void OpenMenu(UIMenu menu)
         {
             HideCurrentMenu();

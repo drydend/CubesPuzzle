@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 392864759}
   - component: {fileID: 392864761}
-  - component: {fileID: 392864760}
+  - component: {fileID: 8790197958666058615}
+  - component: {fileID: 8205782348554575877}
   m_Layer: 5
   m_Name: Settings Button
   m_TagString: Untagged
@@ -47,7 +48,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392864758}
   m_CullTransparentMesh: 1
---- !u!114 &392864760
+--- !u!114 &8790197958666058615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,7 +57,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 392864758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 93ca21a3e5751a8479c1ecf9d268ca1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuToOpen: {fileID: 0}
+--- !u!114 &8205782348554575877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392864758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4a025d084fcfd47b34f00b8e3b3e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -177,7 +191,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1002298192}
   - component: {fileID: 1002298194}
-  - component: {fileID: 1002298193}
+  - component: {fileID: 8757567061991541183}
+  - component: {fileID: 5285436580068504143}
   m_Layer: 5
   m_Name: Open Levels Menu
   m_TagString: Untagged
@@ -214,7 +229,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002298191}
   m_CullTransparentMesh: 1
---- !u!114 &1002298193
+--- !u!114 &8757567061991541183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,7 +238,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1002298191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 93ca21a3e5751a8479c1ecf9d268ca1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuToOpen: {fileID: 0}
+--- !u!114 &5285436580068504143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002298191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4a025d084fcfd47b34f00b8e3b3e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -269,6 +297,7 @@ GameObject:
   - component: {fileID: 1141388682}
   - component: {fileID: 1141388684}
   - component: {fileID: 1141388683}
+  - component: {fileID: 5685627064583898887}
   m_Layer: 5
   m_Name: Level Text
   m_TagString: Untagged
@@ -393,6 +422,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5685627064583898887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141388681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05061a57fa11184caa4493ac8d23802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 1141388683}
 --- !u!1 &1175323614
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,15 +655,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5578074599200610826}
-  - component: {fileID: 5578074599200610824}
   - component: {fileID: 5578074599200610825}
+  - component: {fileID: 2286400632855226841}
   m_Layer: 5
   m_Name: Level Start Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5578074599200610826
 RectTransform:
   m_ObjectHideFlags: 0
@@ -646,19 +688,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5578074599200610824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5578074599200610839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10348eb9d3b5f664fac90b93725bfc58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 5578074599200610825}
 --- !u!95 &5578074599200610825
 Animator:
   serializedVersion: 5
@@ -680,3 +709,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2286400632855226841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578074599200610839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1178ac2f950934bb0742726461ead6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 5578074599200610825}
+  _buttons:
+  - {fileID: 0}
+  - {fileID: 0}
+  _levelCounter: {fileID: 5685627064583898887}

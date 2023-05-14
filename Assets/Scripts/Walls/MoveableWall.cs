@@ -8,8 +8,6 @@ namespace WallsSystem
     public class MoveableWall : Wall, IPauseable
     {
         [SerializeField]
-        private Transform _initialPosition;
-        [SerializeField]
         private float _movementSpeed;
         [SerializeField]
         private WallType _wallType;
@@ -22,7 +20,22 @@ namespace WallsSystem
         public event Action<MoveableWall> StopedMoving;
         public event Action<MoveableWall> ReachedDesiredPosition;
 
+        [field: SerializeField]
+        public Transform InitialPosition { get; private set; }
         public WallType WallType => _wallType;
+
+        public void StopMovingImidiatly()
+        {
+            if (_movementCoroutine != null)
+            {
+                StopCoroutine(_movementCoroutine);
+            }
+        }
+
+        public void SetPositionTo(Vector3 position)
+        {
+            transform.position = position;
+        }
 
         public void MoveTo(Vector3 position)
         {
@@ -93,7 +106,6 @@ namespace WallsSystem
         {
             _isPaused = false;
         }
-
 
         private IEnumerator MoveToRoutine(Vector3 position)
         {

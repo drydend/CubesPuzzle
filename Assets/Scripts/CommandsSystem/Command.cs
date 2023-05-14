@@ -8,6 +8,7 @@ namespace CommandsSystem
 
         protected Command() { }
 
+        public abstract void Stop();
         public abstract void Execute();
         public abstract void Undo();
     }

@@ -1,4 +1,5 @@
-﻿using LevelSystem;
+﻿using Assets.Scripts.UI.Menus;
+using LevelSystem;
 using System;
 using UnityEngine;
 
@@ -7,9 +8,9 @@ namespace GameUI
     public class LevelUI : MonoBehaviour
     {
         [SerializeField]
-        private UIMenu _levelStartUI;
+        private GameStartUI _levelStartUI;
         [SerializeField]
-        private UIMenu _gameRuningUI;
+        private GameRuningUIMenu _gameRuningUI;
         [SerializeField]
         private UIMenu _levelCompleteUI;
         [SerializeField]
@@ -25,7 +26,12 @@ namespace GameUI
 
         public void UpdateUI(LevelConfig levelConfig)
         {
+            _levelStartUI.UpdateUI(levelConfig);
+            _gameRuningUI.UpdateUI(levelConfig);
+        }
 
+        public void ResetUI()
+        {
         }
     }
 }

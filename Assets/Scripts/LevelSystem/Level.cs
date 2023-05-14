@@ -46,6 +46,14 @@ namespace LevelSystem
             states.Add(typeof(LevelCompleteState), new LevelCompleteState(_levelUI.LevelCompleteUI, _UIMenusHolder));
         }
 
+        public void ResetLevel()
+        {
+            _stateMachine.ExitAllStates();
+            _levelUI.ResetUI();
+            _preset.ResetLevel();
+            _commandExecutor.ResetStack();
+        }
+
         public void StartLevel()
         {
             _stateMachine.SwitchState<LevelIdleState>();

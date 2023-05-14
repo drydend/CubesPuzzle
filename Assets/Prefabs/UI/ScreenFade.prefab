@@ -54,7 +54,7 @@ MonoBehaviour:
   _screen: {fileID: 5374296742264570456}
   _fadeTime: 0.5
   _afterFadeDelay: 0
-  _unFadeDelay: 1
+  _unFadeDelay: 0
   _unFadeTime: 0.5
 --- !u!222 &5374296742264570457
 CanvasRenderer:

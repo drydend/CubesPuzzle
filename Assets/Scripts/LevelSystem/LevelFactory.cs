@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Walls;
-using CommandsSystem;
+﻿using CommandsSystem;
 using GameUI;
 using Input;
 using UnityEngine;
@@ -11,8 +10,10 @@ namespace LevelSystem
     {
         private PlayerInput _playerInput;
         private ICoroutinePlayer _coroutinePlayer;
-        private readonly UIMenusHolder _UIMenusHolder;
-        private readonly LevelUI _levelUI;
+        private UIMenusHolder _UIMenusHolder;
+        private LevelUI _levelUI;
+
+        public Level LastCreateLevel { get; private set; }
 
         public LevelFactory(PlayerInput playerInput, ICoroutinePlayer coroutinePlayer
             , UIMenusHolder UIMenusHolder, LevelUI levelUI)
@@ -28,10 +29,13 @@ namespace LevelSystem
             var levelPreset = Object.Instantiate(levelConfig.Preset);
             ICommandExecutor commandExecutor = new CommandExecutor(_coroutinePlayer);
             ILevelCompleteChecker levelWinChecker = new LevelCompleteChecker();
+            
             levelWinChecker.SetLevel(levelPreset);
 
             var level = new Level(_playerInput, levelPreset, commandExecutor, levelWinChecker, _UIMenusHolder, _levelUI);
             level.InitializeStateMachine();
+
+            LastCreateLevel = level;
             return level;
         }
     }

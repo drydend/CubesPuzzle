@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using GameUI.Buttons;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameUI
 {
@@ -9,12 +12,24 @@ namespace GameUI
 
         [SerializeField]
         private Animator _animator;
+        [SerializeField]
+        private List<InteractableUIButton> _buttons;
 
         public virtual void Open()
-        {   
+        {
+            ActivateButtons();
             gameObject.SetActive(true);
             _animator.SetTrigger(OpenAnimationTrigger);
         }
+
+        private void ActivateButtons()
+        {
+            foreach (var item in _buttons)
+            {
+                item.SetActive(true);
+            }
+        }
+
         public virtual void Close()
         {
             _animator.SetTrigger(CloseAnimationTrigger);

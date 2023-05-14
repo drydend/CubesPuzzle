@@ -1383,6 +1383,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6798475481414120103, guid: dfb83a7715b42b8429b691b95e0f1628, type: 3}
+      propertyPath: <InitialPosition>k__BackingField
+      value: 
+      objectReference: {fileID: 6423632963888173519}
     - target: {fileID: 8144663198318214164, guid: dfb83a7715b42b8429b691b95e0f1628, type: 3}
       propertyPath: m_Name
       value: Vertical Moveable Wall (1)
@@ -1415,6 +1419,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!4 &6423632963888173519 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9067862286620130890, guid: dfb83a7715b42b8429b691b95e0f1628, type: 3}
+  m_PrefabInstance: {fileID: 2662419652363956101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8839398384592231714 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6798475481414120103, guid: dfb83a7715b42b8429b691b95e0f1628, type: 3}
@@ -1511,9 +1520,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029256e0265639b4db9d16d17a7dccaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialPosition: {fileID: 293165253}
   _movementSpeed: 6
   _wallType: 1
+  <InitialPosition>k__BackingField: {fileID: 293165253}
 --- !u!1001 &8179395144710346857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1675,12 +1684,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1520151231010090510, guid: 2624a3cff62a07b43844a6ee90aa5b91, type: 3}
+      propertyPath: <InitialPosition>k__BackingField
+      value: 
+      objectReference: {fileID: 2061405931}
     - target: {fileID: 8144663198318214164, guid: 2624a3cff62a07b43844a6ee90aa5b91, type: 3}
       propertyPath: m_Name
       value: Horizontal Moveable Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2624a3cff62a07b43844a6ee90aa5b91, type: 3}
+--- !u!4 &2061405931 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9067862286620130890, guid: 2624a3cff62a07b43844a6ee90aa5b91, type: 3}
+  m_PrefabInstance: {fileID: 9067862286466150561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7552305442135957167 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1520151231010090510, guid: 2624a3cff62a07b43844a6ee90aa5b91, type: 3}

@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72904470c718af4588fdd65453fd8e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialPosition: {fileID: 9067862286620130890}
   _movementSpeed: 6
   _wallType: 0
+  <InitialPosition>k__BackingField: {fileID: 9067862286620130890}
 --- !u!1 &8144663198318214164
 GameObject:
   m_ObjectHideFlags: 0

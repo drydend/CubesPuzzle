@@ -15,7 +15,7 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 
     private UIMenusHolder _menusHolder;
     private LevelUI _levelUI;
-    private readonly LevelPauser _levelPauser;
+    private LevelPauser _levelPauser;
     private LevelFactory _levelFactory;
     private ICoroutinePlayer _coroutinePlayer;
     private ScreenFade _screenFade;
@@ -44,7 +44,7 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
     {
         if (_levelCreationCoroutine != null)
         {
-            throw new System.Exception("Level is stil created, you must wait until its done");
+            _coroutinePlayer.StopRoutine(_levelCreationCoroutine);
         }
 
         _cameraMover.SetLevelConfig(_loadingLevelArgs.LevelConfig);

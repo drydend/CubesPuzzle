@@ -16,6 +16,8 @@ namespace LevelSystem
         private List<MoveableWall> _horizontalWalls = new List<MoveableWall>();
         private List<MoveableWall> _verticalWalls = new List<MoveableWall>();
 
+        private Command _currentCommand;
+
         private CubesMovingStateArgs _args;
 
         public CubesMovingState(StateMachine stateMachine, List<MoveableWall> walls, ICommandExecutor commandExecutor)
@@ -32,7 +34,10 @@ namespace LevelSystem
 
         public override void Exit()
         {
-
+            if (!_currentCommand.IsReady)
+            {
+                _commandExecutor.StopCommand(_currentCommand);
+            }
         }
 
         public override void SetArgs(CubesMovingStateArgs args)
@@ -61,8 +66,8 @@ namespace LevelSystem
 
             WallType wallType;
             MoveDirection moveDirection;
-            
-            if(!WallsMovementDirectionCalculator
+
+            if (!WallsMovementDirectionCalculator
                 .CalculateMoveDirectionAndWallType(_args._inputDirection, out wallType, out moveDirection))
             {
                 _stateMachine.SwitchState<LevelIdleState>();
@@ -77,6 +82,8 @@ namespace LevelSystem
             {
                 movementCommand = new MoveWallsCommand(_horizontalWalls, moveDirection);
             }
+
+            _currentCommand = movementCommand;
 
             if (!_commandExecutor.TryExecuteCommand(movementCommand, OnEndedMoving))
             {

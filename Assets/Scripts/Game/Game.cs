@@ -23,6 +23,10 @@ public class Game
     private UIMenusHolder _menusHolder;
     private LevelUI _levelUI;
 
+    private Level _currentLevel;
+
+    public int LastLoadedLevel { get; private set; }
+
     public Game(LevelsConfigs levelsConfigs, LevelFactory levelFactory, LevelPauser levelPauser, CameraMover cameraMover,
         UIMenusHolder uIMenusHolder, LevelUI levelUI, ICoroutinePlayer coroutinePlayer,
         PlayerInput input, IPauseTrigger pauseTrigger, IUnpauseTrigger unpauseTrigger)
@@ -52,12 +56,25 @@ public class Game
             _menusHolder, _pauseTrigger));
         states.Add(typeof(GamePausedState), new GamePausedState(_stateMachine, _levelPauser, _unpauseTrigger,
             _levelUI.GamePausedUI, _menusHolder));
+        states.Add(typeof(GameRestartingLevelState), new GameRestartingLevelState(_stateMachine, _coroutinePlayer, _levelUI.ScreenFade));
     }
 
     public void LoadLevel(int levelNumber)
     {
+        LastLoadedLevel = levelNumber;
         var config = _levelsConfigs.Configs.Find(cnf => cnf.LevelNumber == levelNumber);
         var args = new LoadingLevelArgs(config);
         _stateMachine.SwithcStateWithParam<GameLoadingLevelState, LoadingLevelArgs>(args);
+    }
+
+    public void LoadNextLevel()
+    {
+        LoadLevel(LastLoadedLevel + 1);
+    }
+
+    public void RestartLevel()
+    {
+        var args = new RestartingLevelArgs(_levelFactory.LastCreateLevel);
+        _stateMachine.SwithcStateWithParam<GameRestartingLevelState, RestartingLevelArgs>(args);
     }
 }

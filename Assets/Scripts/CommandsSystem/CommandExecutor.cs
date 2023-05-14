@@ -1,12 +1,10 @@
-﻿using CommandsSystem;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
 using Utils;
 
-namespace Assets.Scripts.Walls
+namespace CommandsSystem
 {
     public class CommandExecutor : ICommandExecutor
     {
@@ -15,10 +13,25 @@ namespace Assets.Scripts.Walls
         private ICoroutinePlayer _coroutinePlayer;
         private bool _isInProgress;
 
+        private Coroutine _currentCommand;
+
         public CommandExecutor(ICoroutinePlayer coroutinePlayer) 
         {
             _coroutinePlayer = coroutinePlayer;
             _isInProgress = false;
+        }
+
+        public void StopCommand(Command command)
+        {
+            if( _commands.Count < 0 ) 
+            {
+                return;
+            }
+
+            if(_commands.Peek() == command && !command.IsReady) 
+            {
+                command.Stop();
+            }
         }
 
         public bool TryExecuteCommand(Command command, Action callback = null)
@@ -29,7 +42,7 @@ namespace Assets.Scripts.Walls
             }
             
             _commands.Push(command);
-            _coroutinePlayer.StartRoutine(ExecuteCommandRoutine(command, callback));
+            _currentCommand = _coroutinePlayer.StartRoutine(ExecuteCommandRoutine(command, callback));
 
             return true;
         }
@@ -41,13 +54,17 @@ namespace Assets.Scripts.Walls
                 return false;
             }
 
-            _coroutinePlayer.StartRoutine(UndoLastCommandRoutine(_commands.Pop()));
+            _currentCommand = _coroutinePlayer.StartRoutine(UndoLastCommandRoutine(_commands.Pop()));
 
             return true;
         }
 
         public void ResetStack()
         {
+            if (_commands.Count > 0)
+            {
+                StopCommand(_commands.Peek());
+            }
             _commands.Clear();
         }
 

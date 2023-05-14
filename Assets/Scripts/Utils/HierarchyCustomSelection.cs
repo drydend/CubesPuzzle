@@ -1,4 +1,5 @@
-﻿using PauseSystem;
+﻿using GameUI.Buttons;
+using PauseSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,12 @@ public static class HierarchyCustomSelection
     public static void SelectAllMoveableWall()
     {
         SelectObjectsWithComponent<MoveableWall>();
+    }
+
+    [MenuItem("GameObject/Select All InteractableUI Buttons", false, 1)]
+    public static void SelectAllInteractableUIButton()
+    {
+        SelectObjectsWithComponent<InteractableUIButton>();
     }
 
     [MenuItem("GameObject/Select Pause Triggers", false, 1)]
