@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SavingSystem;
+using UnityEngine;
 using Zenject;
 
 public class GameLauncher : MonoBehaviour
@@ -9,12 +10,11 @@ public class GameLauncher : MonoBehaviour
     public void Construct(Game game)
     {
         _game = game;
-        _game.InitializeStateMachine();
+        _game.Initialize();
     }
 
     public void Start()
     {
-
-        _game.LoadLevel(1);
+        _game.LoadLastUnlockedLevel();
     }
 }

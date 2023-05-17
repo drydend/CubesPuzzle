@@ -11,6 +11,7 @@ using WallsSystem;
 
 public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 {
+    private Game _game;
     private StateMachine _stateMachine;
 
     private UIMenusHolder _menusHolder;
@@ -27,9 +28,11 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 
     private Coroutine _levelCreationCoroutine;
 
-    public GameLoadingLevelState(StateMachine stateMachine, UIMenusHolder menusHolder, LevelUI levelUI, LevelPauser levelPauser,
-        LevelFactory levelFactory, ICoroutinePlayer coroutinePlayer, CameraMover cameraMover)
+    public GameLoadingLevelState(Game game, StateMachine stateMachine, UIMenusHolder menusHolder, LevelUI levelUI,
+        LevelPauser levelPauser, LevelFactory levelFactory, 
+        ICoroutinePlayer coroutinePlayer, CameraMover cameraMover)
     {
+        _game = game;
         _stateMachine = stateMachine;
         _menusHolder = menusHolder;
         _levelUI = levelUI;
@@ -68,7 +71,7 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 
         ResetPreviousLevel();
         _loadedLevel = _levelFactory.CreateLevel(_loadingLevelArgs.LevelConfig);
-
+        _game.SetLastLoadedLevel(_loadedLevel);
         InitPauseSystem();
 
         _levelUI.UpdateUI(_loadingLevelArgs.LevelConfig);

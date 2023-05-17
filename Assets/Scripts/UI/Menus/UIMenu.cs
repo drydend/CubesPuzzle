@@ -17,12 +17,24 @@ namespace GameUI
 
         public virtual void Open()
         {
-            ActivateButtons();
+            ActivateInteractables();
             gameObject.SetActive(true);
             _animator.SetTrigger(OpenAnimationTrigger);
         }
 
-        private void ActivateButtons()
+
+        public virtual void Close()
+        {
+            _animator.SetTrigger(CloseAnimationTrigger);
+        }
+
+
+        public void DisableObject()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public virtual void ActivateInteractables()
         {
             foreach (var item in _buttons)
             {
@@ -30,19 +42,10 @@ namespace GameUI
             }
         }
 
-        public virtual void Close()
-        {
-            _animator.SetTrigger(CloseAnimationTrigger);
-        }
 
-        public void DisableInteractables()
+        public virtual void DisableInteractables()
         {
 
-        }
-
-        public void DisableObject()
-        {
-            gameObject.SetActive(false);
         }
     }
 }

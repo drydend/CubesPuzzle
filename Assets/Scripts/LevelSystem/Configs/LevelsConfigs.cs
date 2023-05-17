@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using SavingSystem;
 
 namespace LevelSystem
 {
@@ -9,6 +10,21 @@ namespace LevelSystem
         [SerializeField]
         private List<LevelConfig> _configs;
 
-        public List<LevelConfig> Configs => _configs;  
+        public List<LevelConfig> Configs => _configs;
+
+        public void InitializeWithSaveData(LevelsSaveData saveData)
+        {
+            for (int i = 0; i < _configs.Count; i++)
+            {
+                if(i < saveData.SaveData.Count)
+                {
+                    _configs[i].InitializeWithData(saveData.SaveData[i]);
+                }
+                else
+                {
+                    _configs[i].InitializeWithDefaults();
+                }
+            }
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.UI.Menus;
+using GameUI.Menus;
+using Input;
 using LevelSystem;
-using System;
 using UnityEngine;
+using Zenject;
 
 namespace GameUI
 {
@@ -17,12 +19,24 @@ namespace GameUI
         private UIMenu _gamePauseUI;
         [SerializeField]
         private ScreenFade _screenFade;
+        [SerializeField]
+        private LevelChoseMenu _levelChoseMenu;
 
         public UIMenu LevelStartUI => _levelStartUI;
         public UIMenu GameRuningUI => _gameRuningUI;
         public UIMenu LevelCompleteUI => _levelCompleteUI;
         public UIMenu GamePausedUI => _gamePauseUI;
         public ScreenFade ScreenFade => _screenFade;
+
+        private void Awake()
+        {
+            _levelChoseMenu.gameObject.SetActive(false);
+        }
+
+        public void UpdateChoseMenu(LevelsConfigs configs)
+        {
+            _levelChoseMenu.UpdateUI(configs);
+        }
 
         public void UpdateUI(LevelConfig levelConfig)
         {
@@ -32,6 +46,7 @@ namespace GameUI
 
         public void ResetUI()
         {
+
         }
     }
 }

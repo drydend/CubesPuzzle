@@ -1,6 +1,5 @@
 ﻿using Input;
 using StateMachines;
-using System;
 using UnityEngine;
 
 namespace LevelSystem.States
@@ -20,7 +19,7 @@ namespace LevelSystem.States
 
         public override void Enter()
         {
-            _playerInput.Swiped += OnPlayerSwiped;
+            _playerInput.SwipedOnGameField += OnPlayerSwiped;
 
             if (_winChecker.CheckWin())
             {
@@ -35,7 +34,7 @@ namespace LevelSystem.States
 
         public override void Exit()
         {
-            _playerInput.Swiped -= OnPlayerSwiped;
+            _playerInput.SwipedOnGameField -= OnPlayerSwiped;
         }
 
         private void OnPlayerSwiped(Vector2 direction)

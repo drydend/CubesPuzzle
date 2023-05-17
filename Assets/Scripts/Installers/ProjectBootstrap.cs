@@ -1,4 +1,5 @@
 ﻿using LevelSystem;
+using SavingSystem;
 using SceneLoading;
 using System;
 using UnityEngine;
@@ -19,6 +20,15 @@ namespace Installers
             InstallCoroutinePlayer();
             InstallLevelConfigs();
             InstallSceneLoader();
+            InstallSaveSystem();
+        }
+
+        private void InstallSaveSystem()
+        {
+            Container
+                .Bind<ILevelSaveDataLoader>()
+                .To<JsonSaveDataLoader>()
+                .AsSingle();
         }
 
         private void InstallSceneLoader()

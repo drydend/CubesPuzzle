@@ -12,7 +12,6 @@ namespace Input
         private GameInputField _gameInputField;
         private PlayerSwipeConfig _playerSwipeConfig;
 
-
         private float _touchStartTime;
         private float _touchEndTime;
 
@@ -20,6 +19,7 @@ namespace Input
         private Vector2 _touchEndPosition;
 
         public event Action<Vector2> Swiped;
+        public event Action<Vector2> SwipedOnGameField;
         public event Action<Vector2> LevelStarted;
 
         public PlayerInput(Camera camera, PlayerSwipeConfig config, GameInputField gameInputField)
@@ -57,9 +57,11 @@ namespace Input
 
             if (_gameInputField.IsFingerOnField())
             {
-                Swiped?.Invoke(swipeDirection);
+                SwipedOnGameField?.Invoke(swipeDirection);
                 LevelStarted?.Invoke(swipeDirection);
             }
+
+            Swiped?.Invoke(swipeDirection);
         }
 
         private Vector2 CalculateSwipeDirection()

@@ -23,6 +23,8 @@ namespace LevelSystem
 
         public List<MoveableWall> Walls { get; private set; }
 
+        public event Action Compleated;
+
         public Level(PlayerInput input, LevelPreset levelPreset, 
             ICommandExecutor commandExecutor, ILevelCompleteChecker levelWinChecker, 
             UIMenusHolder uIMenusHolder, LevelUI levelUI) 
@@ -43,7 +45,12 @@ namespace LevelSystem
 
             states.Add(typeof(LevelIdleState), new LevelIdleState(_stateMachine, _playerInput, _levelWinChecker));
             states.Add(typeof(CubesMovingState), new CubesMovingState(_stateMachine, Walls, _commandExecutor));
-            states.Add(typeof(LevelCompleteState), new LevelCompleteState(_levelUI.LevelCompleteUI, _UIMenusHolder));
+            states.Add(typeof(LevelCompleteState), new LevelCompleteState(_levelUI.LevelCompleteUI, _UIMenusHolder, this));
+        }
+
+        public void OnCompleated()
+        {
+            Compleated?.Invoke();
         }
 
         public void ResetLevel()
@@ -68,7 +75,8 @@ namespace LevelSystem
         public void DestroyLevel() 
         {
             _stateMachine.ExitAllStates();
-            UnityEngine.Object.Destroy(_preset);
+            _preset.gameObject.SetActive(false);
+            UnityEngine.Object.Destroy(_preset.gameObject);
         }
     }
 }
