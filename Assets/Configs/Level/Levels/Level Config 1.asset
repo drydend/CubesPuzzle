@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelPreset: {fileID: 94709892, guid: e83a2cc30217038438a1e7b1aebc8f79, type: 3}
   _levelNumber: 1
-  _cameraPosition: {x: -12, y: 30, z: -12}
-  _cameraRotation: {x: 60.000004, y: 45, z: 0}
-  _initialCameraPosition: {x: -14, y: 36, z: -14}
+  _cameraPosition: {x: -7.25, y: 15, z: -7.25}
+  _cameraRotation: {x: 45, y: 45, z: 0}
+  _initialCameraPosition: {x: -10, y: 17, z: -10}
+  _isUnlocked: 1

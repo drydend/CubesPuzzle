@@ -6,6 +6,7 @@ using SavingSystem;
 using StateMachines;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Utils;
 
 public class Game
@@ -26,6 +27,8 @@ public class Game
     private LevelUI _levelUI;
 
     private Level _currentLevel;
+
+    private int _maxLevel;
 
     public int LastCompleatedLevel { get; private set; }
 
@@ -50,6 +53,7 @@ public class Game
 
     public void Initialize()
     {
+        _maxLevel = _levelsConfigs.Configs.Max(x => x.LevelNumber);
         LoadSaveData();
         InitializeStateMachine();
     }
@@ -70,7 +74,13 @@ public class Game
     }
 
     public void LoadNextLevel()
-    {
+    {   
+        if(LastLoadedLevel == _maxLevel)
+        {
+            LoadLevel(1);
+            return;
+        }
+
         LoadLevel(LastLoadedLevel + 1);
     }
 

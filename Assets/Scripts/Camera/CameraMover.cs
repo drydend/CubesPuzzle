@@ -39,6 +39,7 @@ public class CameraMover : MonoBehaviour
         }
 
         _camera.transform.position = _levelConfig.InitialCameraPosition;
+        _camera.transform.rotation = Quaternion.Euler(_levelConfig.CameraRotation);
     }
 
     private IEnumerator MoveToLevelRuningPositionRoutine()

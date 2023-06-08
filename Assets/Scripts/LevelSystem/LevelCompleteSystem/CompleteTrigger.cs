@@ -3,9 +3,11 @@ using WallsSystem;
 
 namespace LevelSystem
 {
-
     public class CompleteTrigger : MonoBehaviour
-    {   
+    {
+        [SerializeField]
+        private GameObject _outline;
+
         public bool IsTriggered { get; private set; }
 
 
@@ -14,6 +16,7 @@ namespace LevelSystem
             if(other.gameObject.TryGetComponent(out MainCube mainCube))
             {
                 IsTriggered = true;
+                _outline?.SetActive(false);
             }
         }
 
@@ -22,6 +25,7 @@ namespace LevelSystem
             if (other.TryGetComponent(out MainCube mainCube))
             {
                 IsTriggered = false;
+                _outline?.SetActive(true);
             }
         }
     }

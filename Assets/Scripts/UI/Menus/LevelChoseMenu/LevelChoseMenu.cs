@@ -1,6 +1,7 @@
 ﻿using Input;
 using LevelSystem;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 using Zenject;
@@ -47,11 +48,12 @@ namespace GameUI.Menus
             var numberOfParts = Mathf.CeilToInt((float)levelsConfigs.Configs.Count / _numberOfLevelPerList);
             _menusAnchorDesiredPositions = new Vector2[numberOfParts];
             _menusAnchorRelativePositions = new int[numberOfParts];
+            var configs = levelsConfigs.Configs.OrderBy(config => config.LevelNumber).ToList();
 
             for (int i = 0; i < Mathf.CeilToInt((float)levelsConfigs.Configs.Count / _numberOfLevelPerList); i++)
             {
                 _menusAnchorRelativePositions[i] = i;
-                var menuPart = InitializeMenuPart(i + 1, levelsConfigs);
+                var menuPart = InitializeMenuPart(i + 1, configs);
                 _menuParts.Add(menuPart);
             }
 
@@ -142,12 +144,12 @@ namespace GameUI.Menus
         }
 
         private void SwipeMenus(MoveDirection moveDirection)
-        {   
-            if(_menusAnchorRelativePositions[0] == 0 && moveDirection == MoveDirection.Forward)
+        {
+            if (_menusAnchorRelativePositions[0] == 0 && moveDirection == MoveDirection.Forward)
             {
                 return;
             }
-            else if(_menusAnchorRelativePositions[_menusAnchorRelativePositions.Length - 1] == 0
+            else if (_menusAnchorRelativePositions[_menusAnchorRelativePositions.Length - 1] == 0
                 && moveDirection == MoveDirection.Backward)
             {
                 return;
@@ -168,10 +170,10 @@ namespace GameUI.Menus
             _pointsMenu.TryMoveTo(moveDirection, _swipeTime);
         }
 
-        private LevelChoseMenuPart InitializeMenuPart(int menuNumber, LevelsConfigs levelsConfigs)
+        private LevelChoseMenuPart InitializeMenuPart(int menuNumber, List<LevelConfig> levelsConfigs)
         {
-            int lastLevelIndex = (menuNumber * _numberOfLevelPerList) < levelsConfigs.Configs.Count ?
-              menuNumber * _numberOfLevelPerList : levelsConfigs.Configs.Count;
+            int lastLevelIndex = (menuNumber * _numberOfLevelPerList) < levelsConfigs.Count ?
+              menuNumber * _numberOfLevelPerList : levelsConfigs.Count;
 
             var position = CreateMenuAchorPositionForMenu(menuNumber - 1);
             _menusAnchorDesiredPositions[menuNumber - 1] = position;
@@ -182,7 +184,7 @@ namespace GameUI.Menus
             for (int i = _numberOfLevelPerList * (menuNumber - 1); i < lastLevelIndex; i++)
             {
                 var slot = Instantiate(_slotPrefab);
-                slot.Initialize(levelsConfigs.Configs[i], _game);
+                slot.Initialize(levelsConfigs[i], _game);
                 menuPart.AddSlot(slot);
                 _menuSlots.Add(slot);
             }

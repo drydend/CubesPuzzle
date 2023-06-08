@@ -34,7 +34,7 @@ namespace LevelSystem
 
         public override void Exit()
         {
-            if (!_currentCommand.IsReady)
+            if (_currentCommand != null && !_currentCommand.IsReady)
             {
                 _commandExecutor.StopCommand(_currentCommand);
             }

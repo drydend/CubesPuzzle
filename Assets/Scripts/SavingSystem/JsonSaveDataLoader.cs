@@ -7,7 +7,7 @@ namespace SavingSystem
 {
     public class JsonSaveDataLoader : ILevelSaveDataLoader
     {
-        private string SavePath => Application.dataPath + @"\LevelSaveData.txt";
+        private string SavePath => Application.persistentDataPath + @"\LevelSaveData.txt";
 
         public void SaveLevelsData(LevelsSaveData levelSaveData)
         {

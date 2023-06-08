@@ -40,7 +40,7 @@ namespace CommandsSystem
                 if (wall.CanMoveInDirection(_movementDirection))
                 {
                     wall.Move(_movementDirection);
-                    wall.StopedMoving += OnWallStoper;
+                    wall.ReachedDesiredPosition += OnWallReachedDesiredPosition;
                     _movingWalls.Add(wall);
                 }
             }
@@ -78,7 +78,7 @@ namespace CommandsSystem
             {
                 foreach (var wall in _walls)
                 {
-                    wall.StopedMoving -= OnWallStoper;
+                    wall.ReachedDesiredPosition -= OnWallReachedDesiredPosition;
                 }
             }
 
@@ -92,17 +92,6 @@ namespace CommandsSystem
         }
 
         private void OnWallReachedDesiredPosition(MoveableWall wall)
-        {
-            _movingWalls.Remove(wall);
-
-            if (_movingWalls.Count == 0)
-            {
-                IsReady = true;
-                Dispose();
-            }
-        }
-
-        private void OnWallStoper(MoveableWall wall)
         {
             _movingWalls.Remove(wall);
 

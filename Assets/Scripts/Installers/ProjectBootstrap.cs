@@ -1,7 +1,6 @@
 ﻿using LevelSystem;
 using SavingSystem;
 using SceneLoading;
-using System;
 using UnityEngine;
 using Utils;
 using Zenject;
@@ -17,6 +16,8 @@ namespace Installers
 
         public override void InstallBindings()
         {
+            Application.targetFrameRate = Screen.currentResolution.refreshRate + 10;
+
             InstallCoroutinePlayer();
             InstallLevelConfigs();
             InstallSceneLoader();

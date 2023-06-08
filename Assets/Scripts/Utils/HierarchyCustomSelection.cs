@@ -7,10 +7,10 @@ using UnityEditor;
 using UnityEngine;
 using WallsSystem;
 
-
+#if UNITY_EDITOR
 public static class HierarchyCustomSelection
 {
-    [MenuItem("GameObject/Select All Moveable Walls",false, 1)]
+    [MenuItem("GameObject/Select All Moveable Walls", false, 1)]
     public static void SelectAllMoveableWall()
     {
         SelectObjectsWithComponent<MoveableWall>();
@@ -85,14 +85,15 @@ public static class HierarchyCustomSelection
 
         for (int i = 0; i < gameOjbect.childCount; i++)
         {
-            if (gameOjbect.GetChild(i).TryGetComponent(type , out Component component))
+            if (gameOjbect.GetChild(i).TryGetComponent(type, out Component component))
             {
                 transforms.Add(gameOjbect.GetChild(i).transform);
             }
 
-            transforms.Add(GetTransfomsWithComponentOfType(type,gameOjbect.GetChild(i)));
+            transforms.Add(GetTransfomsWithComponentOfType(type, gameOjbect.GetChild(i)));
         }
 
         return transforms;
     }
 }
+#endif

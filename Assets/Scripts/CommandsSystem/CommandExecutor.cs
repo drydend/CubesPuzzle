@@ -59,12 +59,15 @@ namespace CommandsSystem
             return true;
         }
 
-        public void ResetStack()
+        public void ResetCommandExecutor()
         {
+            _isInProgress = false;
+
             if (_commands.Count > 0)
             {
                 StopCommand(_commands.Peek());
             }
+
             _commands.Clear();
         }
 

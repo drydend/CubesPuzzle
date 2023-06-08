@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Level Config 2
   m_EditorClassIdentifier: 
   _levelPreset: {fileID: 94709892, guid: 989e2043b6a8dc54f8dfdd087bf3c2cc, type: 3}
-  _levelNumber: 2
+  _levelNumber: 3
   _cameraPosition: {x: -12, y: 30, z: -12}
   _cameraRotation: {x: 60.000004, y: 45, z: 0}
   _initialCameraPosition: {x: -14, y: 36, z: -14}
+  _isUnlocked: 1

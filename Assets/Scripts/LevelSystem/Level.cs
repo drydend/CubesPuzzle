@@ -58,7 +58,7 @@ namespace LevelSystem
             _stateMachine.ExitAllStates();
             _levelUI.ResetUI();
             _preset.ResetLevel();
-            _commandExecutor.ResetStack();
+            _commandExecutor.ResetCommandExecutor();
         }
 
         public void StartLevel()
