@@ -1,4 +1,6 @@
-﻿namespace Utils
+﻿using Tutorial;
+
+namespace Utils
 {
     public static class Utilities
     {
@@ -12,6 +14,6 @@
             {
                 return 1;
             }
-        }
+        }  
     }
 }

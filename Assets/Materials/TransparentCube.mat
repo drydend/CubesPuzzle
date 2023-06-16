@@ -98,7 +98,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GlowMaxAlpha: 0.6
+    - _GlowMaxAlpha: 0.8
     - _GlowMinAlpha: 0.1
     - _GlowRate: 1.8
     - _MaxAlpha: 1

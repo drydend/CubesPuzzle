@@ -1,5 +1,4 @@
 ﻿using CommandsSystem;
-using LevelSystem.States;
 using StateMachines;
 using System.Collections.Generic;
 using Utils;
@@ -68,7 +67,7 @@ namespace LevelSystem
             MoveDirection moveDirection;
 
             if (!WallsMovementDirectionCalculator
-                .CalculateMoveDirectionAndWallType(_args._inputDirection, out wallType, out moveDirection))
+                .TryCalculateMoveDirectionAndWallType(_args._inputDirection, out wallType, out moveDirection))
             {
                 _stateMachine.SwitchState<LevelIdleState>();
                 return;

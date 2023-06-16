@@ -70,16 +70,36 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
         yield return _screenFade.Fade();
 
         ResetPreviousLevel();
-        _loadedLevel = _levelFactory.CreateLevel(_loadingLevelArgs.LevelConfig);
+
+        _loadedLevel = LoadLevel();
         _game.SetLastLoadedLevel(_loadedLevel);
         InitPauseSystem();
 
         _levelUI.UpdateUI(_loadingLevelArgs.LevelConfig);
-
-        var args = new GameStartStateArgs(_loadedLevel);
-        _stateMachine.SwithcStateWithParam<GameStartState, GameStartStateArgs>(args);
+        StartGame();
 
         yield return _screenFade.UnFade();
+    }
+
+    private void StartGame()
+    {
+        var args = new GameStartStateArgs(_loadedLevel, _loadingLevelArgs.LevelType == LevelType.Tutorial);
+        _stateMachine.SwithcStateWithParam<GameStartState, GameStartStateArgs>(args);
+    }
+
+    private Level LoadLevel()
+    {
+        switch (_loadingLevelArgs.LevelType)
+        {
+            case LevelType.Common:
+                return _levelFactory.CreateLevel(_loadingLevelArgs.LevelConfig);
+            case LevelType.Tutorial:
+                return _levelFactory.CreateTutorialLevel(_loadingLevelArgs.LevelConfig);
+            case LevelType.Final:
+                return _levelFactory.CreateFinalLevel(_loadingLevelArgs.LevelConfig);
+            default:
+                throw new ArgumentException($"Level type is not supported: {_loadingLevelArgs.LevelType}");
+        }
     }
 
     private void InitPauseSystem()

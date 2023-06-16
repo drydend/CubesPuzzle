@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a89504ed1000604eb8dacaaf9e036d1, type: 3}
+  m_Name: Tutorial Step 6
+  m_EditorClassIdentifier: 
+  <StepText>k__BackingField: Nice! The cube moved. Now swipe right.
+  <HintText>k__BackingField: Swipe to continue
+  <NextStep>k__BackingField: {fileID: 11400000, guid: c1574fb8e640db34ab8f4c7b0819132f, type: 2}
+  <CompleteCodition>k__BackingField: 1
+  <VisualObjects>k__BackingField: []

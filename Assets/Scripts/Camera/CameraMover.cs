@@ -38,8 +38,8 @@ public class CameraMover : MonoBehaviour
             StopCoroutine(_coroutine);
         }
 
-        _camera.transform.position = _levelConfig.InitialCameraPosition;
-        _camera.transform.rotation = Quaternion.Euler(_levelConfig.CameraRotation);
+        _camera.orthographicSize = _levelConfig.InitialCameraSize;
+
     }
 
     private IEnumerator MoveToLevelRuningPositionRoutine()
@@ -47,9 +47,9 @@ public class CameraMover : MonoBehaviour
         var timeElapsedNormalized = 0f;
 
         while (timeElapsedNormalized != 1)
-        {
-            _camera.transform.position = Vector3.Lerp(_camera.transform.position, 
-                _levelConfig.CameraPosition, _animationCurve.Evaluate(timeElapsedNormalized));
+        {   
+            var cameraSize = Mathf.Lerp(_levelConfig.InitialCameraSize, _levelConfig.CameraSize, timeElapsedNormalized);
+            _camera.orthographicSize = cameraSize;
 
             timeElapsedNormalized = Mathf.Clamp(timeElapsedNormalized + Time.deltaTime / _animationTime, 0 , 1);
             yield return null;

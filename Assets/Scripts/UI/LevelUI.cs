@@ -16,6 +16,8 @@ namespace GameUI
         [SerializeField]
         private UIMenu _levelCompleteUI;
         [SerializeField]
+        private UIMenu _tutorialLevelCompleteUI; 
+        [SerializeField]
         private UIMenu _gamePauseUI;
         [SerializeField]
         private ScreenFade _screenFade;
@@ -25,13 +27,9 @@ namespace GameUI
         public UIMenu LevelStartUI => _levelStartUI;
         public UIMenu GameRuningUI => _gameRuningUI;
         public UIMenu LevelCompleteUI => _levelCompleteUI;
+        public UIMenu TutorialCompleteUI => _tutorialLevelCompleteUI;
         public UIMenu GamePausedUI => _gamePauseUI;
         public ScreenFade ScreenFade => _screenFade;
-
-        private void Awake()
-        {
-            _levelChoseMenu.gameObject.SetActive(false);
-        }
 
         public void UpdateChoseMenu(LevelsConfigs configs)
         {

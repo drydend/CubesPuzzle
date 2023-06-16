@@ -8,11 +8,13 @@ namespace SavingSystem
     {
         public List<LevelSaveData> SaveData = new List<LevelSaveData>();
         public int LastCompleatedLevel;
+        public bool IsTutorialCompleated;
 
-        public LevelsSaveData(List<LevelSaveData> levelsSaveData, int lastUnlockedLevel = 1)
+        public LevelsSaveData(List<LevelSaveData> levelsSaveData, int lastUnlockedLevel = 1, bool isTutorialCompleated = false)
         {
             SaveData = levelsSaveData;
             LastCompleatedLevel = lastUnlockedLevel;
+            IsTutorialCompleated = isTutorialCompleated;
         }
 
         public LevelsSaveData() 
@@ -21,6 +23,7 @@ namespace SavingSystem
             SaveData.Add(levelSaveData);
 
             LastCompleatedLevel = 0;
+            IsTutorialCompleated = false;
         }
     }
 }

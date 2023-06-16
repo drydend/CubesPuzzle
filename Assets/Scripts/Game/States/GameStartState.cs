@@ -9,12 +9,12 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
     private StateMachine _stateMachine;
 
     private UIMenu _levelStateUIMenu;
-    private readonly CameraMover _cameraMover;
+    private CameraMover _cameraMover;
     private UIMenusHolder _UIMenusHolder;
     private ILevelStartTrigger _levelStartTrigger;
     private IPauseTrigger _levelPauseTrigger;
 
-    private Level _currentLevel;
+    private GameStartStateArgs _args;
 
     public GameStartState(StateMachine stateMachine, UIMenu levelStateUIMenu, CameraMover cameraMover,
         UIMenusHolder uIMenusHolder, ILevelStartTrigger levelStartTrigger, IPauseTrigger levelPauseTrigger)
@@ -29,6 +29,13 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
 
     public override void Enter()
     {
+        if (_args.IsTutorial)
+        {
+            _args.CurrentLevel.StartLevel();
+            _stateMachine.SwitchState<GameRuningState>();
+            return; 
+        }
+
         _cameraMover.SetToLevelStartPosition();
         _UIMenusHolder.OpenMenu(_levelStateUIMenu);
         _levelPauseTrigger.GamePaused += PauseGame;
@@ -45,7 +52,7 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
 
     public override void SetArgs(GameStartStateArgs args)
     {
-        _currentLevel = args.CurrentLevel;
+        _args = args;
     }
 
     private void PauseGame()
@@ -55,7 +62,7 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
 
     private void StartLevel(Vector2 swipeDirection)
     {
-        _currentLevel.StartLevelWithSwipe(swipeDirection);
+        _args.CurrentLevel.StartLevelWithSwipe(swipeDirection);
         _stateMachine.SwitchState<GameRuningState>();
     }
 }

@@ -6,29 +6,15 @@ namespace LevelSystem
     [CreateAssetMenu(menuName = "Level Config")]
     public class LevelConfig : ScriptableObject
     {
-        [SerializeField]
-        private LevelPreset _levelPreset;
-        [SerializeField]
-        private int _levelNumber = 0;
-        [SerializeField]
-        private Vector3 _cameraPosition;
-        [SerializeField]
-        private Vector3 _cameraRotation;
-        [SerializeField]
-        private Vector3 _initialCameraPosition;
-        [SerializeField]
-        private bool _isUnlocked = false;
-
-        public LevelPreset Preset => _levelPreset;
-        public int LevelNumber => _levelNumber;
-        public Vector3 CameraPosition => _cameraPosition;
-        public Vector3 CameraRotation => _cameraRotation;
-        public Vector3 InitialCameraPosition => _initialCameraPosition;
-        public bool IsUnlocked => _isUnlocked;
-
+        [field: SerializeField] public LevelPreset Preset { get; private set; }
+        [field: SerializeField] public int LevelNumber { get; private set; }
+        [field: SerializeField] public float InitialCameraSize { get; private set; }
+        [field: SerializeField] public float CameraSize { get; private set; }
+        [field : SerializeField] public bool IsUnlocked { get; private set; }
+        
         public void InitializeWithData(LevelSaveData levelSaveDate)
         {
-            _isUnlocked = levelSaveDate.IsUnlocked;
+            IsUnlocked = levelSaveDate.IsUnlocked;
         }
 
         public void InitializeWithDefaults()
@@ -38,7 +24,7 @@ namespace LevelSystem
 
         public void Unlock()
         {
-            _isUnlocked = true;
+            IsUnlocked = true;
         }
     }
 }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using LevelSystem;
+using System.IO.Pipes;
 
 namespace Input
 {
@@ -18,6 +19,7 @@ namespace Input
         private Vector2 _touchStartPosition;
         private Vector2 _touchEndPosition;
 
+        public event Action Tapped;
         public event Action<Vector2> Swiped;
         public event Action<Vector2> SwipedOnGameField;
         public event Action<Vector2> LevelStarted;
@@ -44,6 +46,15 @@ namespace Input
             _touchEndTime = (float)ctx.time;
 
             CheckSwipe();
+            CheckTap();
+        }
+
+        private void CheckTap()
+        {
+            if (_gameInputField.IsFingerOnField())
+            {
+                Tapped?.Invoke();
+            }
         }
 
         private void CheckSwipe()

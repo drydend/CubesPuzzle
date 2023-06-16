@@ -7,6 +7,7 @@ using StateMachines;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tutorial;
 using Utils;
 
 public class Game
@@ -20,6 +21,7 @@ public class Game
     private LevelPauser _levelPauser;
     private PlayerInput _input;
     private CameraMover _cameraMover;
+    private TutorialCompleteTrigger _tutorialCompleteTrigger;
 
     private LevelsConfigs _levelsConfigs;
     private LevelFactory _levelFactory;
@@ -29,6 +31,7 @@ public class Game
     private Level _currentLevel;
 
     private int _maxLevel;
+    private bool _isTutorialCompleated;
 
     public int LastCompleatedLevel { get; private set; }
 
@@ -36,7 +39,8 @@ public class Game
 
     public Game(LevelsConfigs levelsConfigs, LevelFactory levelFactory, LevelPauser levelPauser, CameraMover cameraMover,
         UIMenusHolder uIMenusHolder, LevelUI levelUI, ICoroutinePlayer coroutinePlayer,
-        PlayerInput input, IPauseTrigger pauseTrigger, IUnpauseTrigger unpauseTrigger, ILevelSaveDataLoader saveDataLoader)
+        PlayerInput input, IPauseTrigger pauseTrigger, IUnpauseTrigger unpauseTrigger, ILevelSaveDataLoader saveDataLoader,
+        TutorialCompleteTrigger tutorialCompleteTrigger)
     {
         _levelFactory = levelFactory;
         _levelPauser = levelPauser;
@@ -49,33 +53,66 @@ public class Game
         _pauseTrigger = pauseTrigger;
         _unpauseTrigger = unpauseTrigger;
         _levelDataSaver = saveDataLoader;
+        _tutorialCompleteTrigger = tutorialCompleteTrigger;
     }
 
     public void Initialize()
     {
         _maxLevel = _levelsConfigs.Configs.Max(x => x.LevelNumber);
+        _tutorialCompleteTrigger.Compleated += OnTutorialCompleated;
         LoadSaveData();
         InitializeStateMachine();
     }
 
+    public void StartGame()
+    {
+        LoadLastUnlockedLevel();
+    }
+
     public void LoadLastUnlockedLevel()
     {
-        LoadLevel(LastCompleatedLevel + 1);
+        if (LastCompleatedLevel == _maxLevel)
+        {
+            LoadLevel(1);
+        }
+        else
+        {
+            LoadLevel(LastCompleatedLevel + 1);
+        }
     }
 
     public void LoadLevel(int levelNumber)
     {
         LastLoadedLevel = levelNumber;
         var config = _levelsConfigs.Configs.Find(cnf => cnf.LevelNumber == levelNumber);
-        var args = new LoadingLevelArgs(config);
+
+        var levelType = GetCurrentLevelType();
+
+        var args = new LoadingLevelArgs(config, levelType);
 
         _menusHolder.CloseAllMenus();
         _stateMachine.SwithcStateWithParam<GameLoadingLevelState, LoadingLevelArgs>(args);
     }
 
+    private LevelType GetCurrentLevelType()
+    {
+        if (_isTutorialCompleated == false)
+        {
+            return LevelType.Tutorial;
+        }
+        else if (LastLoadedLevel == _maxLevel)
+        {
+            return LevelType.Final;
+        }
+        else
+        {
+            return LevelType.Common;
+        }
+    }
+
     public void LoadNextLevel()
-    {   
-        if(LastLoadedLevel == _maxLevel)
+    {
+        if (LastLoadedLevel == _maxLevel)
         {
             LoadLevel(1);
             return;
@@ -106,6 +143,7 @@ public class Game
         var saveData = _levelDataSaver.LoadLevelSaveData();
         _levelsConfigs.InitializeWithSaveData(saveData);
         LastCompleatedLevel = saveData.LastCompleatedLevel;
+        _isTutorialCompleated = saveData.IsTutorialCompleated;
     }
 
     private void InitializeStateMachine()
@@ -129,9 +167,14 @@ public class Game
         if (LastLoadedLevel > LastCompleatedLevel)
         {
             LastCompleatedLevel = LastLoadedLevel;
-            var levelConfig = _levelsConfigs.Configs.Find(cnf => cnf.LevelNumber == LastCompleatedLevel + 1);
-            levelConfig.Unlock();
-            _levelUI.UpdateUI(levelConfig);
+
+            if (LastCompleatedLevel != _maxLevel)
+            {
+                var levelConfig = _levelsConfigs.Configs.Find(cnf => cnf.LevelNumber == LastCompleatedLevel + 1);
+                levelConfig.Unlock();
+                _levelUI.UpdateUI(levelConfig);
+            }
+
             _levelUI.UpdateChoseMenu(_levelsConfigs);
             SaveLevelsData();
         }
@@ -146,8 +189,13 @@ public class Game
             levelsData.Add(new LevelSaveData(config.LevelNumber, config.IsUnlocked));
         }
 
-        var levelsSaveData = new LevelsSaveData(levelsData, LastCompleatedLevel);
+        var levelsSaveData = new LevelsSaveData(levelsData, LastCompleatedLevel, _isTutorialCompleated);
 
         _levelDataSaver.SaveLevelsData(levelsSaveData);
+    }
+
+    private void OnTutorialCompleated()
+    {
+        _isTutorialCompleated = true;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using CommandsSystem;
 using GameUI;
 using Input;
-using LevelSystem.States;
 using StateMachines;
 using System;
 using System.Collections.Generic;
@@ -12,14 +11,14 @@ namespace LevelSystem
 {
     public class Level 
     {
-        private StateMachine _stateMachine;
+        protected StateMachine _stateMachine;
 
-        private PlayerInput _playerInput;
-        private LevelPreset _preset;
-        private ICommandExecutor _commandExecutor;
-        private ILevelCompleteChecker _levelWinChecker;
-        private UIMenusHolder _UIMenusHolder;
-        private LevelUI _levelUI;
+        protected PlayerInput _playerInput;
+        protected LevelPreset _preset;
+        protected ICommandExecutor _commandExecutor;
+        protected ILevelCompleteChecker _levelWinChecker;
+        protected UIMenusHolder _UIMenusHolder;
+        protected LevelUI _levelUI;
 
         public List<MoveableWall> Walls { get; private set; }
 
@@ -38,7 +37,7 @@ namespace LevelSystem
             _levelUI = levelUI;
         }
 
-        public void InitializeStateMachine()
+        public virtual void InitializeStateMachine()
         {
             var states = new Dictionary<Type, BaseState>();
             _stateMachine = new StateMachine(states);
@@ -48,12 +47,12 @@ namespace LevelSystem
             states.Add(typeof(LevelCompleteState), new LevelCompleteState(_levelUI.LevelCompleteUI, _UIMenusHolder, this));
         }
 
-        public void OnCompleated()
+        public virtual void OnCompleated()
         {
             Compleated?.Invoke();
         }
 
-        public void ResetLevel()
+        public virtual void ResetLevel()
         {
             _stateMachine.ExitAllStates();
             _levelUI.ResetUI();
@@ -61,12 +60,12 @@ namespace LevelSystem
             _commandExecutor.ResetCommandExecutor();
         }
 
-        public void StartLevel()
+        public virtual void StartLevel()
         {
             _stateMachine.SwitchState<LevelIdleState>();
         }
 
-        public void StartLevelWithSwipe(Vector2 swipeDirection)
+        public virtual void StartLevelWithSwipe(Vector2 swipeDirection)
         {
             var args = new CubesMovingStateArgs(swipeDirection);
             _stateMachine.SwithcStateWithParam<CubesMovingState, CubesMovingStateArgs>(args);

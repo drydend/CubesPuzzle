@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad303df6bf10a6f42ae3319e88f8c8bf, type: 3}
   m_Name: Level Config 1
   m_EditorClassIdentifier: 
-  _levelPreset: {fileID: 94709892, guid: e83a2cc30217038438a1e7b1aebc8f79, type: 3}
-  _levelNumber: 1
-  _cameraPosition: {x: -7.25, y: 15, z: -7.25}
-  _cameraRotation: {x: 45, y: 45, z: 0}
-  _initialCameraPosition: {x: -10, y: 17, z: -10}
-  _isUnlocked: 1
+  <Preset>k__BackingField: {fileID: 94709892, guid: e83a2cc30217038438a1e7b1aebc8f79, type: 3}
+  <LevelNumber>k__BackingField: 1
+  <InitialCameraSize>k__BackingField: 15
+  <CameraSize>k__BackingField: 12
+  <IsUnlocked>k__BackingField: 1

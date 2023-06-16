@@ -89,9 +89,11 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FoamDepth: -1
-    - _FoamNoiseScale: 1.5
-    - _FoamRipleSpeed: 0.25
+    - _FoamAmount: 20
+    - _FoamCutoff: 1
+    - _FoamDepth: 1
+    - _FoamNoiseScale: 0
+    - _FoamRipleSpeed: 0.2
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -106,9 +108,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WaveHeight: 2
+    - _WaveHeight: 0.7
     - _WaveNoiseScale: 0.5
-    - _WaveSpeed: 0.25
+    - _WaveSpeed: 1.3
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

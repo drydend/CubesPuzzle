@@ -2,7 +2,7 @@
 using StateMachines;
 using UnityEngine;
 
-namespace LevelSystem.States
+namespace LevelSystem
 {
     public class LevelIdleState : BaseState
     {
@@ -27,14 +27,14 @@ namespace LevelSystem.States
             }
         }
 
-        private void OnPlayerWin()
-        {
-            _stateMachine.SwitchState<LevelCompleteState>();
-        }
-
         public override void Exit()
         {
             _playerInput.SwipedOnGameField -= OnPlayerSwiped;
+        }
+
+        private void OnPlayerWin()
+        {
+            _stateMachine.SwitchState<LevelCompleteState>();
         }
 
         private void OnPlayerSwiped(Vector2 direction)

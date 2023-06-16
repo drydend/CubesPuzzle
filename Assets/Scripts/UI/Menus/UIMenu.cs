@@ -11,6 +11,8 @@ namespace GameUI
         private const string CloseAnimationTrigger = "Close trigger";
 
         [SerializeField]
+        private GameObject _menuView;
+        [SerializeField]
         private Animator _animator;
         [SerializeField]
         private List<InteractableUIButton> _buttons;
@@ -18,20 +20,18 @@ namespace GameUI
         public virtual void Open()
         {
             ActivateInteractables();
-            gameObject.SetActive(true);
+            _menuView.SetActive(true);
             _animator.SetTrigger(OpenAnimationTrigger);
         }
-
 
         public virtual void Close()
         {
             _animator.SetTrigger(CloseAnimationTrigger);
         }
 
-
         public void DisableObject()
         {
-            gameObject.SetActive(false);
+            _menuView.SetActive(false);
         }
 
         public virtual void ActivateInteractables()
@@ -42,10 +42,12 @@ namespace GameUI
             }
         }
 
-
         public virtual void DisableInteractables()
         {
-
+            foreach (var item in _buttons)
+            {
+                item.SetActive(false);
+            }
         }
     }
 }

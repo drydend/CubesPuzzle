@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Levels Configs
   m_EditorClassIdentifier: 
   _configs:
-  - {fileID: 11400000, guid: ef6df81ebaf897e42bc92d45a7e4f78e, type: 2}
   - {fileID: 11400000, guid: b9ed44d2867b7c6458f3a98e88777272, type: 2}
-  - {fileID: 11400000, guid: 4dfa4c29eafae7a4fa62c813ec6e382d, type: 2}
+  - {fileID: 11400000, guid: 72a1eb2ef03057a409b34c4072d0e4a5, type: 2}
+  - {fileID: 11400000, guid: f533e615951bc554db57b05a693e6dc5, type: 2}
