@@ -1,9 +1,6 @@
 ﻿using Input;
 using StateMachines;
-using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Tutorial;
-using UnityEditor.Search;
 using UnityEngine;
 using Utils;
 

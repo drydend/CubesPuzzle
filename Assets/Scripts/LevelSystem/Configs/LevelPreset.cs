@@ -7,11 +7,19 @@ namespace LevelSystem
 {
     public class LevelPreset : MonoBehaviour
     {
+        
+
         [SerializeField]
         private List<CompleteTrigger> _completeTriggers;
 
         [SerializeField]
         private List<MoveableWall> _walls;
+
+        [SerializeField]
+        private MeshFilter _waterFilter;
+        [SerializeField]
+        private float _distanceBetweenWaterVertices = 0.5f;
+
         private List<MainCube> _mainCubes;
         public List<MainCube> MainCubes
         {
@@ -32,6 +40,14 @@ namespace LevelSystem
             {
                 wall.SetPositionTo(wall.InitialPosition.position);
             }
+        }
+
+        public void GenerateWater(int planeSize)
+        {
+            var verticlesNumber = Mathf.CeilToInt(planeSize * 1.5f * (1 / _distanceBetweenWaterVertices));
+            _waterFilter.mesh = Utils.MeshGenerator.CreatePlane(verticlesNumber, verticlesNumber, _distanceBetweenWaterVertices);
+            var position = new Vector3(-planeSize* 1.5f / 2f, _waterFilter.transform.localPosition.y, -planeSize * 1.5f / 2f);
+            _waterFilter.transform.localPosition = position;
         }
 
         private void CacheMainCubes()

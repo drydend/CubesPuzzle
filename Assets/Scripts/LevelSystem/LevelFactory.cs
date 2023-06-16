@@ -34,7 +34,8 @@ namespace LevelSystem
 
         public Level CreateLevel(LevelConfig levelConfig)
         {
-            var levelPreset = Object.Instantiate(levelConfig.Preset);
+            var levelPreset = CreatePreset(levelConfig);
+
             ICommandExecutor commandExecutor = new CommandExecutor(_coroutinePlayer);
             ILevelCompleteChecker levelWinChecker = new LevelCompleteChecker();
             
@@ -49,7 +50,8 @@ namespace LevelSystem
 
         public Level CreateFinalLevel(LevelConfig levelConfig)
         {
-            var levelPreset = Object.Instantiate(levelConfig.Preset);
+            LevelPreset levelPreset = CreatePreset(levelConfig);
+
             ICommandExecutor commandExecutor = new CommandExecutor(_coroutinePlayer);
             ILevelCompleteChecker levelWinChecker = new LevelCompleteChecker();
 
@@ -64,11 +66,13 @@ namespace LevelSystem
 
         public TutorialLevel CreateTutorialLevel(LevelConfig levelConfig)
         {
-            var levelPreset = Object.Instantiate(levelConfig.Preset);
+            var levelPreset = CreatePreset(levelConfig);
+
             ICommandExecutor commandExecutor = new CommandExecutor(_coroutinePlayer);
             ILevelCompleteChecker levelWinChecker = new LevelCompleteChecker();
 
             levelWinChecker.SetLevel(levelPreset);
+
             _tutorialVisualizer.Initialize(levelPreset);
             var level = new TutorialLevel(_playerInput, levelPreset, commandExecutor, levelWinChecker, 
                 _UIMenusHolder, _levelUI, _tutorialPath, _tutorialVisualizer, _tutorialCompleteTrigger);
@@ -77,5 +81,14 @@ namespace LevelSystem
             LastCreateLevel = level;
             return level;
         }
+
+        private static LevelPreset CreatePreset(LevelConfig levelConfig)
+        {
+            var preset = Object.Instantiate(levelConfig.Preset);
+            preset.GenerateWater(Mathf.CeilToInt(levelConfig.InitialCameraSize) * 2);
+
+            return preset;
+        }
+
     }
 }
