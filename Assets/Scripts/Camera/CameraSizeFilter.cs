@@ -2,8 +2,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class CameraMover : MonoBehaviour
+public class CameraSizeFilter : MonoBehaviour
 {
+    private const float OriginScreenRation = 16/9;
+
     [SerializeField]
     private Camera _camera;
 

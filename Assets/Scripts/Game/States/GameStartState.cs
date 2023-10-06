@@ -9,14 +9,14 @@ public class GameStartState : ParamBaseState<GameStartStateArgs>
     private StateMachine _stateMachine;
 
     private UIMenu _levelStateUIMenu;
-    private CameraMover _cameraMover;
+    private CameraSizeFilter _cameraMover;
     private UIMenusHolder _UIMenusHolder;
     private ILevelStartTrigger _levelStartTrigger;
     private IPauseTrigger _levelPauseTrigger;
 
     private GameStartStateArgs _args;
 
-    public GameStartState(StateMachine stateMachine, UIMenu levelStateUIMenu, CameraMover cameraMover,
+    public GameStartState(StateMachine stateMachine, UIMenu levelStateUIMenu, CameraSizeFilter cameraMover,
         UIMenusHolder uIMenusHolder, ILevelStartTrigger levelStartTrigger, IPauseTrigger levelPauseTrigger)
     {
         _stateMachine = stateMachine;

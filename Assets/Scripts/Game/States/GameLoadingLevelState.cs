@@ -20,7 +20,7 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
     private LevelFactory _levelFactory;
     private ICoroutinePlayer _coroutinePlayer;
     private ScreenFade _screenFade;
-    private CameraMover _cameraMover;
+    private CameraSizeFilter _cameraMover;
 
     private Level _loadedLevel;
 
@@ -30,7 +30,7 @@ public class GameLoadingLevelState : ParamBaseState<LoadingLevelArgs>
 
     public GameLoadingLevelState(Game game, StateMachine stateMachine, UIMenusHolder menusHolder, LevelUI levelUI,
         LevelPauser levelPauser, LevelFactory levelFactory, 
-        ICoroutinePlayer coroutinePlayer, CameraMover cameraMover)
+        ICoroutinePlayer coroutinePlayer, CameraSizeFilter cameraMover)
     {
         _game = game;
         _stateMachine = stateMachine;

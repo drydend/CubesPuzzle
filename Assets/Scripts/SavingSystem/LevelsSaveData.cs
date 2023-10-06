@@ -7,23 +7,23 @@ namespace SavingSystem
     public class LevelsSaveData
     {
         public List<LevelSaveData> SaveData = new List<LevelSaveData>();
-        public int LastCompleatedLevel;
-        public bool IsTutorialCompleated;
+        public int LastCompletedLevel;
+        public bool IsTutorialCompleted;
 
         public LevelsSaveData(List<LevelSaveData> levelsSaveData, int lastUnlockedLevel = 1, bool isTutorialCompleated = false)
         {
             SaveData = levelsSaveData;
-            LastCompleatedLevel = lastUnlockedLevel;
-            IsTutorialCompleated = isTutorialCompleated;
+            LastCompletedLevel = lastUnlockedLevel;
+            IsTutorialCompleted = isTutorialCompleated;
         }
 
         public LevelsSaveData() 
         {
-            var levelSaveData = new LevelSaveData(LastCompleatedLevel, true);
+            var levelSaveData = new LevelSaveData(LastCompletedLevel, true);
             SaveData.Add(levelSaveData);
 
-            LastCompleatedLevel = 0;
-            IsTutorialCompleated = false;
+            LastCompletedLevel = 0;
+            IsTutorialCompleted = false;
         }
     }
 }

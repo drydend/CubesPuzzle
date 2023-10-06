@@ -20,7 +20,7 @@ public class Game
     private ILevelSaveDataLoader _levelDataSaver;
     private LevelPauser _levelPauser;
     private PlayerInput _input;
-    private CameraMover _cameraMover;
+    private CameraSizeFilter _cameraMover;
     private TutorialCompleteTrigger _tutorialCompleteTrigger;
 
     private LevelsConfigs _levelsConfigs;
@@ -37,7 +37,7 @@ public class Game
 
     public int LastLoadedLevel { get; private set; }
 
-    public Game(LevelsConfigs levelsConfigs, LevelFactory levelFactory, LevelPauser levelPauser, CameraMover cameraMover,
+    public Game(LevelsConfigs levelsConfigs, LevelFactory levelFactory, LevelPauser levelPauser, CameraSizeFilter cameraMover,
         UIMenusHolder uIMenusHolder, LevelUI levelUI, ICoroutinePlayer coroutinePlayer,
         PlayerInput input, IPauseTrigger pauseTrigger, IUnpauseTrigger unpauseTrigger, ILevelSaveDataLoader saveDataLoader,
         TutorialCompleteTrigger tutorialCompleteTrigger)
@@ -142,8 +142,8 @@ public class Game
     {
         var saveData = _levelDataSaver.LoadLevelSaveData();
         _levelsConfigs.InitializeWithSaveData(saveData);
-        LastCompleatedLevel = saveData.LastCompleatedLevel;
-        _isTutorialCompleated = saveData.IsTutorialCompleated;
+        LastCompleatedLevel = saveData.LastCompletedLevel;
+        _isTutorialCompleated = saveData.IsTutorialCompleted;
     }
 
     private void InitializeStateMachine()

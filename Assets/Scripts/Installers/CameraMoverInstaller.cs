@@ -7,12 +7,12 @@ namespace Installers
     public class CameraMoverInstaller : MonoInstaller
     {
         [SerializeField]
-        private CameraMover _cameraMover;
+        private CameraSizeFilter _cameraMover;
 
         public override void InstallBindings()
         {
             Container
-                .Bind<CameraMover>()
+                .Bind<CameraSizeFilter>()
                 .FromInstance(_cameraMover)
                 .AsSingle();
         }
